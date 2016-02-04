@@ -4,11 +4,12 @@ class Currency
     @amount = amount
   end
 
-  def ==(monitize)
-    if [@code, @amount] == monitize
+  def ==(other_money)
+    if [@code, @amount] == other_money.monitize
       true
     else #[@code, @amount] != monitize
       false
+    end
   end
 
   def monitize
