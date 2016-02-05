@@ -21,10 +21,6 @@ class Currency
     @amount
   end
 
-  # def code_error
-  #   puts "DifferentCurrencyCodeError"
-  # end
-
   def ==(other_currency)
     if @code == other_currency.codify && @amount == other_currency.quantify
       true
@@ -32,9 +28,16 @@ class Currency
   end
 
   def +(other_currency)
-    if @code != other_currency.codify
-      raise MyError, "DifferentCurrencyCodeError"
-    else @amount + other_currency.quantify
+    if @code == other_currency.codify
+      @amount + other_currency.quantify
+    else raise MyError, "DifferentCurrencyCodeError"
+    end
+  end
+
+  def -(other_currency)
+    if @code == other_currency.codify
+      @amount - other_currency.quantify
+    else raise MyError, "DifferentCurrencyCodeError"
     end
   end
 
