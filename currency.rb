@@ -1,15 +1,18 @@
-class MyError < StandardError
+class DifferentCurrencyCodeError < StandardError
 end
 
 
 class Currency
-  def initialize(code, amount)
+  def initialize(amount, code = nil)
     symbol = Hash.new
     symbol = {"$" => :USD, "¥" => :JPY, "£" => :GBP, "€" => :EUR}
-    @code = symbol[code]
-    if (amount.to_f.to_s != amount) && (amount.to_i.to_s != amount)
-      @amount = amount[1..-1]
-    else @amount = amount.to_f
+
+    if code
+      @code = code
+      @amount = amount
+    else
+      @code = symbol[(amount[0])]
+      @amount = amount[1..-1].to_f
     end
   end
 
@@ -21,6 +24,10 @@ class Currency
     @amount
   end
 
+  def to_s
+    "#{@amount} #{@code}"
+  end
+
   def ==(other_currency)
     if @code == other_currency.codify && @amount == other_currency.quantify
       true
@@ -29,18 +36,22 @@ class Currency
 
   def +(other_currency)
     if @code == other_currency.codify
-      @amount + other_currency.quantify
-    else raise MyError, "DifferentCurrencyCodeError"
+      Currency.new(@amount + other_currency.quantify, @code)
+    else
+      raise DifferentCurrencyCodeError
     end
   end
 
   def -(other_currency)
     if @code == other_currency.codify
-      @amount - other_currency.quantify
-    else raise MyError, "DifferentCurrencyCodeError"
+      Currency.new(@amount - other_currency.quantify, @code)
+    else
+      raise DifferentCurrencyCodeError
     end
   end
 
-
+  def *(factor)
+    Currency.new(@amount * factor.to_f, @code)
+  end
 
 end
