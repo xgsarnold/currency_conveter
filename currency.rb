@@ -4,16 +4,27 @@ class Currency
     @amount = amount
   end
 
-  def ==(other_money)
-    if [@code, @amount] == other_money.monitize
+  def codify
+    @code
+  end
+
+  def quantify
+    @amount
+  end
+
+  #def code_error
+  #  puts "DifferentCurrencyCodeError"
+  #end
+
+  def ==(other_currency)
+    if @code == other_currency.codify && @amount == other_currency.quantify
       true
     else #[@code, @amount] != monitize
       false
     end
   end
 
-  def monitize
-    [@code, @amount]
-  end
+
+
 
 end
