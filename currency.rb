@@ -1,7 +1,16 @@
+class MyError < StandardError
+end
+
+
 class Currency
   def initialize(code, amount)
-    @code = code
-    @amount = amount
+    symbol = Hash.new
+    symbol = {"$" => :USD, "¥" => :JPY, "£" => :GBP, "€" => :EUR}
+    @code = symbol[code]
+    if (amount.to_f.to_s != amount) && (amount.to_i.to_s != amount)
+      @amount = amount[1..-1]
+    else @amount = amount.to_f
+    end
   end
 
   def codify
@@ -12,18 +21,22 @@ class Currency
     @amount
   end
 
-  #def code_error
-  #  puts "DifferentCurrencyCodeError"
-  #end
+  # def code_error
+  #   puts "DifferentCurrencyCodeError"
+  # end
 
   def ==(other_currency)
     if @code == other_currency.codify && @amount == other_currency.quantify
       true
-    else #[@code, @amount] != monitize
-      false
     end
   end
 
+  def +(other_currency)
+    if @code != other_currency.codify
+      raise MyError, "DifferentCurrencyCodeError"
+    else @amount + other_currency.quantify
+    end
+  end
 
 
 
