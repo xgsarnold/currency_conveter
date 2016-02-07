@@ -1,11 +1,30 @@
 
-class Converter
+class Currency_Converter
   def initialize({code1 => rate1, code2 => rate2})
     @code1 = code1
     @rate1 = rate1
     @code2 = code2
     @rate2 = rate2
   end
+
+
+
+  def convert(Currency.new(amount, code))
+    if @code = @code1
+      Currency.new(@amount * @rate2, @code2)
+    else
+      
+  end
+
+  # dollars_to_yen = Currency_Converter.new(:USD => 1.0, :JPY => 120.0)
+  # currency_converter.convert(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
+
+
+  # end
+
+  # def (:USD => 1.0, :JPY => 120).convert()
+
+
 end
 
 
