@@ -1,21 +1,31 @@
+require './currency.rb'
+
 class UnknownCurrencyCodeError < StandardError
 end
 
-class Currency_Converter
-  def initialize({code1 => rate1, code2 => rate2})
-    @code1 = code1
-    @rate1 = rate1
-    @code2 = code2
-    @rate2 = rate2
+class CurrencyConverter
+  def initialize(conversion_rates)
+    @conversion_rates = conversion_rates
   end
 
-  def convert(Currency.new(amount, code))
-    if @code = @code1
-      Currency.new(@amount * @rate2, @code2)
+  def to_s
+    "#{@conversion_rates}"
+  end
+
+  current_currency = Currency.new(amount, code)
+  current_code = current_currency.code
+
+  def convert(current_currency, requested_code)
+    if @current_code == @conversion_rates[current_code.code]
+      exchange_rate = @conversion_rates[requested_code]
+      new_currency = current_currency.amount * exchange_rate
+      Currency.new(new_currency, requested_code)
     else
       raise UnknownCurrencyCodeError
     end
   end
+end
+
 
   # dollars_to_yen = Currency_Converter.new(:USD => 1.0, :JPY => 120.0)
   # currency_converter.convert(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
@@ -26,7 +36,6 @@ class Currency_Converter
   # def (:USD => 1.0, :JPY => 120).convert()
 
 
-end
 
 
 #don't create a hash that contains static exchange rates.
