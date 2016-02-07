@@ -1,3 +1,5 @@
+class UnknownCurrencyCodeError < StandardError
+end
 
 class Currency_Converter
   def initialize({code1 => rate1, code2 => rate2})
@@ -7,13 +9,12 @@ class Currency_Converter
     @rate2 = rate2
   end
 
-
-
   def convert(Currency.new(amount, code))
     if @code = @code1
       Currency.new(@amount * @rate2, @code2)
     else
-      
+      raise UnknownCurrencyCodeError
+    end
   end
 
   # dollars_to_yen = Currency_Converter.new(:USD => 1.0, :JPY => 120.0)
