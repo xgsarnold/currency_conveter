@@ -1,7 +1,6 @@
 class DifferentCurrencyCodeError < StandardError
 end
 
-
 class Currency
   def initialize(amount, code = nil)
     symbol = Hash.new
@@ -53,5 +52,4 @@ class Currency
   def *(factor)
     Currency.new(@amount * factor.to_f, @code)
   end
-
 end

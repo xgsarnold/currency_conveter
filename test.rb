@@ -1,15 +1,16 @@
 require './currency.rb'
 require './converter.rb'
 
-geoffs_money = Currency.new("$25")
+current_currency = Currency.new("¥3000")
 dads_money = Currency.new("$4")
-dollars_to_yen = CurrencyConverter.new({USD: 1.0, JPY: 120.0})
-#moms_money = Currency.new("JYN", "4.00")
+dollars_to_yen = CurrencyConverter.new({USD: 1.0, JPY: 120.0, GBP: 0.7})
 
-puts "#{geoffs_money.codify} #{geoffs_money.quantify}"
-puts geoffs_money * 3
+
+# puts "#{geoffs_money.codify} #{geoffs_money.quantify}"
 puts dollars_to_yen
-puts convert(geoffs_money, :JPY)
+puts dollars_to_yen.convert(current_currency, :GBP)
+
+#moms_money = Currency.new("JYN", "4.00")
 # puts dollars_to_yen.covert(geoffs_money)
 # puts geoffs_money
 
